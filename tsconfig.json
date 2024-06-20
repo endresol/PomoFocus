@@ -22,6 +22,12 @@
       ]
     },
   },
-  "include": ["src", "electron"],
+  "ts-node": {
+    "esm": true,
+    "compilerOptions": {
+      "module": "commonjs",
+    }
+  },
+  "include": ["src", "electron", "repositories", "db"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

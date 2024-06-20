@@ -1,17 +1,62 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import './index.css'
+import App from "./App.tsx";
+import {
+  Home,
+  Timer,
+  ClientsPage,
+  ProjectsPage,
+  SettingsPage,
+  ClientAddEdit,
+} from "./pages";
 
-import './demos/ipc'
-// If you want use Node.js, the`nodeIntegration` needs to be enabled in the Main process.
-// import './demos/node'
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElement!);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { index: true, element: <Home /> },
+      {
+        path: "/timer",
+        element: <Timer />,
+      },
+      {
+        path: "/clients",
+        element: <ClientsPage />,
+      },
+      {
+        path: "/clients/add",
+        element: <ClientAddEdit />,
+      },
+      {
+        path: "/projects",
+        element: <ProjectsPage />,
+      },
+      {
+        path: "/settings",
+        element: <SettingsPage />,
+      },
+    ],
+  },
+]);
+
+root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
 
-postMessage({ payload: 'removeLoading' }, '*')
+// Remove Preload scripts loading
+postMessage({ payload: "removeLoading" }, "*");
+
+// Use contextBridge
+window.ipcRenderer.on("main-process-message", (_event, message) => {
+  console.log(message);
+});

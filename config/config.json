@@ -1,0 +1,14 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "pomofocus.db"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "pomofocus.db"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "pomofocus.db"
+  }
+}
